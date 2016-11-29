@@ -10,19 +10,26 @@ public class calculator {
 	private String input= "0+51*(7+-2*(6+99))";
 	
 
-	public String postFix()
+	public String[] postFix()
 	{
-		ArrayList<String> postfixArr = new ArrayList<String>();
-		StringBuilder tmpStr = new StringBuilder(50);
-		Stack<Character> tempSt = new Stack<Character>();
-		boolean isCCharNum = false;
-		char cChar;//Current char of the input
-		//reads each char of the input 
-		for(int i =0; i < this.input.length() ; i++)
-		{
+		/*
+		 * This function convert an infix argument to a postfix ordered array following the order of priority 
+		 * stated priorityOrder[] attribute.
+		 * the infix string should not have any spaces and it should be a operand infront of every non-first negative character. (if the numberChars[] and priorityOrder[] input should be
+		 * 2+-4. The reason of this is that the negative character is treated as a number character, not as a operand.
+		 * It also should be noted that if there are 2 operands of the same level of priority, the one at the left will be added to postFixArr first
+		 * 
+		 */
+		ArrayList<String> postfixArr = new ArrayList<String>();	//Holds every term and operand of the input ordered in postfix
+		StringBuilder tmpStr = new StringBuilder(50);			//Used to concat number characters
+		Stack<Character> tempSt = new Stack<Character>();		// Stack used as a buffer for the operands
+		boolean isCCharNum = false;								//
+		char cChar;												//Current char of the input
+		for(int i =0; i < this.input.length() ; i++)			
+		{	
 			isCCharNum = false;
 			cChar = this.input.charAt(i);
-			//Check if the cChar is a number
+			
 			if(cChar == parenthesis[0])
 			{
 				tempSt.push(cChar);
@@ -31,7 +38,7 @@ public class calculator {
 			{
 				if(cChar != parenthesis[1])
 				{
-					for(int x = 0 ; x < this.numberChars.length ; x++)
+					for(int x = 0 ; x < this.numberChars.length ; x++)	//Check if the cChar is a number
 					{
 						if(cChar == numberChars[x])
 						{
@@ -53,14 +60,14 @@ public class calculator {
 						
 						if(!tempSt.empty() && tempSt.peek() != parenthesis[0])
 						{
-							int a,b;
+							int a,b;// a holds the "level of priority" of cChar and b holds the one of the last operand in the stack
 							boolean poped;
 							do
 							{
 								poped = false;
 								a=-1;
 								b=-1;
-								for(int x =0; x < this.priorityOrder.length ; x++)
+								for(int x =0; x < this.priorityOrder.length ; x++) //finds the level of priority of cChar and the last operand in the stack.
 								{
 									if(cChar == priorityOrder[x])
 										a=x;
@@ -107,9 +114,7 @@ public class calculator {
 			//postfix.append(tempSt.pop());
 			postfixArr.add(String.valueOf(tempSt.pop()));
 		}
-		for(int i = 0;i<postfixArr.size();i++)
-			System.out.print(postfixArr.get(i));
-		return postfix.toString();
+		return  postfixArr.toArray(new String[postfixArr.size()]);
 	}
 	public String parseInput()
 	{
