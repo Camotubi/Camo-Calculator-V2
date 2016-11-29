@@ -13,7 +13,6 @@ public class calculator {
 	public String postFix()
 	{
 		ArrayList<String> postfixArr = new ArrayList<String>();
-		StringBuilder postfix = new StringBuilder(50);
 		StringBuilder tmpStr = new StringBuilder(50);
 		Stack<Character> tempSt = new Stack<Character>();
 		boolean isCCharNum = false;
@@ -36,7 +35,7 @@ public class calculator {
 					{
 						if(cChar == numberChars[x])
 						{
-							//postfix.append(cChar);
+
 							tmpStr.append(cChar);
 							isCCharNum = true;
 							System.out.println(cChar);
@@ -71,7 +70,7 @@ public class calculator {
 								if(a!=-1 && b!=-1 && a<=b)
 								{
 									poped = true;
-									//postfix.append(tempSt.pop());
+
 									postfixArr.add(String.valueOf(tempSt.pop()));
 									
 								}
@@ -95,7 +94,6 @@ public class calculator {
 					}
 
 					while(tempSt.peek()!=parenthesis[0])
-						//postfix.append(tempSt.pop());
 						postfixArr.add(String.valueOf(tempSt.pop()));
 					tempSt.pop();
 				}
