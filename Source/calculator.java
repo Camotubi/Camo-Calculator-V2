@@ -10,12 +10,13 @@ public class calculator {
 	private String input= "0+(51/7)/2^99";
 	
 
-	public String[] postFix()
+	public String[] postFix(String expression)
 	{
 		/*
 		 * This function convert an infix argument to a postfix ordered array following the order of priority 
 		 * stated priorityOrder[] attribute.
-		 * the infix string should not have any spaces and it should be a operand infront of every non-first negative character. (if the numberChars[] and priorityOrder[] input should be
+		 * the infix string should not have any spaces and it should be a operand infront of every non-first negative character. (if the numberChars[]
+		 * and priorityOrder[] input should be
 		 * 2+-4. The reason of this is that the negative character is treated as a number character, not as a operand.
 		 * It also should be noted that if there are 2 operands of the same level of priority, the one at the left will be added to postFixArr first
 		 * 
@@ -26,10 +27,10 @@ public class calculator {
 		boolean isCCharNum = false;								//
 		char cChar;												//Current char of the input
 		
-		for(int i =0; i < this.input.length() ; i++)			
+		for(int i =0; i <expression.length() ; i++)			
 		{	
 			isCCharNum = false;
-			cChar = this.input.charAt(i);
+			cChar = expression.charAt(i);
 			
 			if(cChar == parenthesis[0])
 			{
@@ -120,8 +121,9 @@ public class calculator {
 		return  postfixArr.toArray(new String[postfixArr.size()]);
 	}
 	
-	public double solve(String[] postfixExp)
+	public double solve(String input)
 	{
+		String[] postfixExp = postFix(input);
 		double result = 0;
 		Stack<String> numSt = new Stack<String>();
 		String cStr;
