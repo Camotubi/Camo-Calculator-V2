@@ -7,7 +7,7 @@ public class calculator {
 	private  char parenthesis[] = {'(',')'};
 	
 	
-	private String input= "0+51*(7+-2*(6+99))";
+	private String input= "0+51*(7+(-2^99))";
 	
 
 	public String[] postFix()
@@ -25,6 +25,7 @@ public class calculator {
 		Stack<Character> tempSt = new Stack<Character>();		// Stack used as a buffer for the operands
 		boolean isCCharNum = false;								//
 		char cChar;												//Current char of the input
+		
 		for(int i =0; i < this.input.length() ; i++)			
 		{	
 			isCCharNum = false;
@@ -115,6 +116,63 @@ public class calculator {
 			postfixArr.add(String.valueOf(tempSt.pop()));
 		}
 		return  postfixArr.toArray(new String[postfixArr.size()]);
+	}
+	
+	public double solve(String[] postfixExp)
+	{
+		double result = 0;
+		Stack<String> numSt = new Stack<String>();
+		String cStr;
+		boolean isCStrNum = false;
+		for(int i = 0; i < postfixExp.length;i++)
+		{
+			isCStrNum = false;
+			cStr = postfixExp[i];
+		
+			for(int x = 0 ; x < this.numberChars.length ; x++)	//Check if the cChar is a number
+			{
+				if(cStr.charAt(0) == numberChars[x])
+				{
+					isCStrNum=true;
+					break;
+				}
+			}
+			if(isCStrNum)
+			{
+				numSt.push(cStr);
+			}
+			else
+			{
+				switch(cStr)
+				{
+					case "+":
+					{
+						Double num2 =Double.parseDouble(numSt.pop()),num1=Double.parseDouble(numSt.pop());
+						numSt.push(String.valueOf((num1+num2)));
+						break;
+					}
+					case "*":
+					{
+						Double num2 =Double.parseDouble(numSt.pop()),num1=Double.parseDouble(numSt.pop());
+						numSt.push(String.valueOf((num1*num2)));
+						break;
+					}
+					case "/":
+					{
+						Double num2 =Double.parseDouble(numSt.pop()),num1=Double.parseDouble(numSt.pop());
+						numSt.push(String.valueOf((num1/num2)));
+						break;
+					}
+					case "^":
+					{
+						Double num2 =Double.parseDouble(numSt.pop()),num1=Double.parseDouble(numSt.pop());
+						numSt.push(String.valueOf((Math.pow(num1, num2))));
+						break;
+					}
+				}
+			}
+		}
+		return Double.parseDouble(numSt.pop());
 	}
 	public String parseInput()
 	{

@@ -6,5 +6,6 @@ public class Main {
 		String arr[] = calc.postFix();
 		for(int i = 0;i<arr.length ; i++)
 			System.out.print(arr[i]);
+		System.out.println("\n"+calc.solve(arr));
 	}
 }
