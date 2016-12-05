@@ -7,7 +7,7 @@ public class calculator {
 	private  char parenthesis[] = {'(',')'};
 	
 	
-	private String input= "0+51*(7+(-2^99))";
+	private String input= "0+(51/7)/2^99";
 	
 
 	public String[] postFix()
@@ -87,11 +87,11 @@ public class calculator {
 						}
 						else
 						{
-							System.out.println(cChar);
 							tempSt.push(cChar);
 						}
 	
 					}
+					
 				}
 				else
 				{
@@ -110,6 +110,8 @@ public class calculator {
 			
 		}
 
+			postfixArr.add(tmpStr.toString());
+			tmpStr.setLength(0);
 		while(tempSt.size()>0)
 		{
 			//postfix.append(tempSt.pop());
